@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": 106.71,
+        "lat": 10.76
+    },
+    "weather": [
+        {
+            "id": 803,
+            "main": "Clouds",
+            "description": "broken clouds",
+            "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 33,
+        "pressure": 1007,
+        "humidity": 52,
+        "temp_min": 33,
+        "temp_max": 33
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 1,
+        "deg": 90
+    },
+    "clouds": {
+        "all": 75
+    },
+    "dt": 1571206871,
+    "sys": {
+        "type": 1,
+        "id": 9314,
+        "country": "VN",
+        "sunrise": 1571179315,
+        "sunset": 1571222129
+    },
+    "timezone": 25200,
+    "id": 1566083,
+    "name": "Thanh pho Ho Chi Minh",
+    "cod": 200
+}

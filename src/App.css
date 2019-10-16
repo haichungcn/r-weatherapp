@@ -1,22 +1,152 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
 }
 
-.App-link {
-  color: #09d3ac;
+body {
+  height: 100%;
+  background-image: url("./img/cloud-2.gif");
+  background-color: rgb(16, 16, 16, 80);
+  background-size: cover; 
 }
+
+h1 {
+  font-size: 3.5rem;
+}
+
+@keyframes scrollin {
+  0% {top: 30px; opacity: 0;}
+  50% {top: 0px; opacity: 1;}
+  100% {top: -30px; opacity: 0;}
+}
+
+.css-dptuu5 {
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  position: relative;
+  margin: 2px;
+  border-radius: 100%;
+  opacity: 0.8;
+  animation: 2s cubic-bezier(0.7, -0.13, 0.22, 0.86) 0s infinite normal none running animation-zodxwl;
+}
+
+.css-26qlqt {
+  background-color: whitesmoke;
+    width: 25px;
+    height: 25px;
+    opacity: 0.6;
+    position: absolute;
+    top: 0px;
+    left: -38px;
+    margin: 2px;
+    border-radius: 100%;
+}
+
+.css-wf5wj2 {
+  background-color: white;
+  width: 25px;
+  height: 25px;
+  opacity: 0.6;
+  position: absolute;
+  top: 0px;
+  left: 35px;
+  margin: 2px;
+  border-radius: 100%;
+}
+
+@keyframes animation-zodxwl {
+  0% {
+    transform: rotate(0deg);
+}
+50% {
+    transform: rotate(180deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+
+
+.weatherCard {
+  background-color: black;
+  opacity: 0.6;
+  border-top: solid 5px #fff;
+  border-left: solid 5px #fff;
+  border-right: solid 5px rgb(230, 230, 230);
+  border-bottom: solid 5px rgb(230, 230, 230);
+  box-shadow: 10px 10px 30px black;
+  width: 50rem;
+  padding: 4rem 3rem 10rem 3rem;
+  border-radius: 20px;
+}
+
+.temp > p{
+  color: white;
+  font-size:7rem;
+  font-weight: bold;
+  /* border: solid 3px black; */
+}
+
+.temp > p > span {
+  font-size: 3rem;
+  font-variant: small-caps;
+  position: relative;
+  top: -45px;
+  left: -5px;
+}
+
+.infoContainer {
+  height: 1.8rem;
+  overflow: hidden;
+  display: inline-block;
+  border: solid 2px #e74c3c;
+  border-radius: 2rem;
+}
+
+.info {
+  height: 1.7rem;
+  color: rgba(255, 255, 255,1);
+  font: normal bold 1.3rem Montserrat, sans-serif;
+  position: relative;
+  white-space: nowrap;
+  top: -4;
+  left: 0;
+  animation: 15s move infinite;
+}
+
+@keyframes move{
+  0%  { top: -4px;opacity: 1; }
+  10% { opacity: 0.5;}
+  20% { top: -22px;opacity: 1; }
+  30% { opacity: 0.5;}
+  40% { top: -47px;opacity: 1;}
+  50% { opacity: 0.5;}
+  60% { top: -71px;opacity: 1; }
+  70% { opacity: 0.5;}
+  80% { top: -95px;opacity: 1; }
+  }
+
+  .fa-sync-alt, .fa-city {
+    font-size: 1.6rem;
+  }
+
+  .refresh :hover {
+    opacity:1;
+    color: white;
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg) scale(1.2);
+    transition-duration: 2s;
+  }
+
+  .city :hover {
+    opacity:1;
+    transform: scale(1.1);
+    transition-duration: 200ms;
+  }
