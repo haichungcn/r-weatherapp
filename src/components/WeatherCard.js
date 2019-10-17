@@ -5,13 +5,12 @@ export default function WeatherCard() {
     const [weather, setWeather] = useState(null);
     const [currentLocation, setCurrentLocation] = useState(null);
 
-    // const getCityLocation = (cityName) => {
-    //     const city = cities.find(c => c.name === cityName);
-    //     console.log(city);
-    //     city && getData(city.latitude, cities.longitude, 'metric');
-    //     city && setCurrentLocation(city.name);
-    // }
-
+    const getCityLocation = (cityName) => {
+        const city = cities.find(c => c.name === cityName);
+        console.log(city.name);
+        city && getData(city.latitude, city.longitude, 'metric');
+        city && setCurrentLocation(city.name);
+    }
 
     const getData = async (lat, lon, unit) => {
         const api = '34c77a8033259550c71448ec1fda10ad';
@@ -55,22 +54,21 @@ export default function WeatherCard() {
                         <strong>Awesome Weather App</strong>
                     </h1>
                     <div class="dropdown col-2 container text-right">
-                        <a className="city dropdown-toggle" 
-                        // onChange={getCityLocation()} 
+                        <a className="city dropdown-toggle"  
                         href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-city text-muted"></i>
+                            <i className="fas fa-city text-muted"></i>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            {/* {cities.map(city => <a class="dropdown-item" href="#" onClick={getCityLocation(city.name)}>{city.name}</a>)} */}
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {cities.map(city => <a className="dropdown-item" href="#" onClick={`getCityLocation(${city.name})`}>{city.name}</a>)}
                         </div>
                     </div><h2 className="col-8">
                         {weather ? weather.name : 'Location Name'}, {weather && weather.sys.country}
                     </h2>
                     <div className="col-2 container text-left"><a href="#" className="refresh"
-                    // onClick={
-                    //     // currentLocation ? getCityLocation(currentLocation) : getLocation()
-                    // }
-                    ><i class="fas fa-sync-alt text-muted"></i></a></div>
+                    onClick={
+                        currentLocation ? `getCityLocation(${currentLocation})` : `getLocation()`
+                    }
+                    ><i className="fas fa-sync-alt text-muted"></i></a></div>
                 </div>
 
                 <div className="row mt-3">
