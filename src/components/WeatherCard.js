@@ -6,12 +6,16 @@ export default function WeatherCard() {
     const [weather, setWeather] = useState(null);
     const [currentLocation, setCurrentLocation] = useState(null);
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [lat, setLat] = useState(null);
+    const [lon, setLon] = useState(null);
 
     const getCityLocation = (cityName) => {
         const city = cities.find(c => c.name === cityName);
         console.log(city.name);
         city && getData(city.latitude, city.longitude, 'metric');
         city && setCurrentLocation(city.name);
+        setLat(parseFloat(city.latitude).toFixed(5));
+        setLon(parseFloat(city.longitude).toFixed(5));
     }
 
     const getData = async (lat, lon, unit) => {
@@ -20,20 +24,26 @@ export default function WeatherCard() {
         const response = await fetch(url).catch(error => alert(error))
         const data = await response.json();
         data ? setWeather(data) : setWeather(weatherData);
-        // setWeather(weatherData);
-        console.log(data);
-        console.log(lat, lon, unit)
+        // // setWeather(weatherData);
+        // console.log(data);
+        // console.log(lat, lon, unit)
     }
 
     const getLocation = () => {
         navigator.geolocation.getCurrentPosition((post) => {
             getData(post.coords.latitude, post.coords.longitude, 'metric');
+            setLat(parseFloat(post.coords.latitude).toFixed(5));
+            setLon(parseFloat(post.coords.longitude).toFixed(5));
         })
     }
 
     useEffect(() => {
         getLocation();
     }, [])
+
+    const update = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1 * 1000);
 
     if (!weather) {
         return (
@@ -50,12 +60,12 @@ export default function WeatherCard() {
 
     return (
         <div className="App container-fluid text-white my-auto">
-            <div className="container mx-auto my-4 py-4 weatherCard">
+            <div className="container mx-auto my-4 py-4 px-1 weatherCard">
                 <div className="row align-items-center text-center">
                     <h1 className="col-12 my-2 py-3 text-success">
                         <strong>Awesome Weather App</strong>
                     </h1>
-                    <div className="dropdown col-2 container text-right">
+                    <div className="dropdown col-2 container text-left">
                         <button className="btn city dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i className="fas fa-city text-muted"></i>
                         </button>
@@ -65,20 +75,21 @@ export default function WeatherCard() {
                         />
                     </div><h2 className="col-8">
                         {weather ? weather.name : 'Location Name'}, {weather && weather.sys.country}
+                        <p className="lead text-warning coordinateDisplay">{lat}°, {lon}°</p>
                     </h2>
-                    <div className="col-2 container text-left"><a href="#" className="refresh"
+
+                    <div className="col-2 container text-center"><a href="#" className="refresh"
                     onClick={() => currentLocation ? getCityLocation(currentLocation) : getLocation()}
                     ><i className="fas fa-sync-alt text-muted"></i></a></div>
                 </div>
 
-                <div className="row mt-3">
+                <div className="row m-0 bottomContent">
                     <div className="col-12 col-md-4 text-danger d-flex justify-content-center align-items-center temp">
                         <p>{weather ? parseInt(weather.main.temp) : 'Temperature'}<span className="text-muted">°C</span></p>
                     </div>
 
-                    <div className="col-12 col-md-4 d-flex flex-column justify-content-center align-items-center">
-                        <div>${currentTime}</div>
-                        <div className="container infoContainer d-flex justify-content-center align-items-start shadow">
+                    <div className="col-12 col-md-4 d-flex p-0 flex-column justify-content-start align-items-center">
+                        <div className="container mb-2 infoContainer d-flex justify-content-center align-items-start shadow">
                             <div className="container info d-flex justify-content-center align-items-start">
                                 <p className="infoContent">
                                     {weather ? `Min Temp: ${weather.main.temp_min}°C` : 'Min Temp'}<br></br>
@@ -89,6 +100,7 @@ export default function WeatherCard() {
                                 </p>
                             </div>
                         </div>
+                        <h2 className="clock mt-2">{currentTime.toLocaleTimeString()}</h2>
                     </div>
 
                     <div className="col-12 col-md-4 description">
@@ -96,9 +108,9 @@ export default function WeatherCard() {
                             <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon && weather.weather[0].icon}@2x.png`}></img>
                         </div>
                         <div className="row d-flex justify-content-center">
-                            <h3 className="">
+                            <h4 className="">
                                 {weather.weather[0].description ? weather.weather[0].description : 'Weather Description'}
-                            </h3>
+                            </h4>
                         </div>
                     </div>
 

@@ -163,3 +163,7 @@ h1 {
   .dropdown > .dropdown-toggle :active {
     pointer-events: all;
 }
+
+.bottomContent {
+  height: 10rem;
+}
