@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { weatherData, cities } from '../utils/';
+import Dropdown from './Dropdown.js';
 
 export default function WeatherCard() {
     const [weather, setWeather] = useState(null);
     const [currentLocation, setCurrentLocation] = useState(null);
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     const getCityLocation = (cityName) => {
         const city = cities.find(c => c.name === cityName);
@@ -53,30 +55,29 @@ export default function WeatherCard() {
                     <h1 className="col-12 my-2 py-3 text-success">
                         <strong>Awesome Weather App</strong>
                     </h1>
-                    <div class="dropdown col-2 container text-right">
-                        <a className="city dropdown-toggle"  
-                        href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div className="dropdown col-2 container text-right">
+                        <button className="btn city dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i className="fas fa-city text-muted"></i>
-                        </a>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            {cities.map(city => <a className="dropdown-item" href="#" onClick={() => getCityLocation(city.name)}>{city.name}</a>)}
-                        </div>
+                        </button>
+                        <Dropdown 
+                            onGetCityLocation = {getCityLocation}
+                            onCities = {cities}
+                        />
                     </div><h2 className="col-8">
                         {weather ? weather.name : 'Location Name'}, {weather && weather.sys.country}
                     </h2>
                     <div className="col-2 container text-left"><a href="#" className="refresh"
-                    onClick={
-                        currentLocation ? `getCityLocation(${currentLocation})` : `getLocation()`
-                    }
+                    onClick={() => currentLocation ? getCityLocation(currentLocation) : getLocation()}
                     ><i className="fas fa-sync-alt text-muted"></i></a></div>
                 </div>
 
                 <div className="row mt-3">
                     <div className="col-12 col-md-4 text-danger d-flex justify-content-center align-items-center temp">
-                        <p>{weather ? weather.main.temp : 'Temperature'}<span className="text-muted">°C</span></p>
+                        <p>{weather ? parseInt(weather.main.temp) : 'Temperature'}<span className="text-muted">°C</span></p>
                     </div>
 
                     <div className="col-12 col-md-4 d-flex flex-column justify-content-center align-items-center">
+                        <div>${currentTime}</div>
                         <div className="container infoContainer d-flex justify-content-center align-items-start shadow">
                             <div className="container info d-flex justify-content-center align-items-start">
                                 <p className="infoContent">
