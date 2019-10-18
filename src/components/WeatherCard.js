@@ -59,7 +59,7 @@ export default function WeatherCard() {
                             <i className="fas fa-city text-muted"></i>
                         </a>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            {cities.map(city => <a className="dropdown-item" href="#" onClick={`getCityLocation(${city.name})`}>{city.name}</a>)}
+                            {cities.map(city => <a className="dropdown-item" href="#" onClick={() => getCityLocation(city.name)}>{city.name}</a>)}
                         </div>
                     </div><h2 className="col-8">
                         {weather ? weather.name : 'Location Name'}, {weather && weather.sys.country}
