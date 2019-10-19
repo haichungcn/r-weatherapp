@@ -175,3 +175,11 @@ h1 {
 .bottomContent {
   min-height: 9rem;
 }
+
+.forecastContainer {
+  display: inline-block;
+  overflow: scroll;
+  max-height: 8rem;
+  width: 100%;
+  margin: 0;
+}

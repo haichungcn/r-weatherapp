@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { weatherData, cities } from '../utils/';
-import Dropdown from './Dropdown.js';
+import { weatherData, forecastData, cities, APIKEY } from '../utils/';
+import Dropdown from './Dropdown';
+// import Forecast from './Forecast'
 
 export default function WeatherCard() {
     const [weather, setWeather] = useState(null);
+    const [forecasts, setForecasts] = useState([]);
     const [currentLocation, setCurrentLocation] = useState(null);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [lat, setLat] = useState(null);
     const [lon, setLon] = useState(null);
+    const [invisible, setInvisible] = useState('invisible');
 
     const getCityLocation = (cityName) => {
         const city = cities.find(c => c.name === cityName);
@@ -19,7 +22,7 @@ export default function WeatherCard() {
     }
 
     const getData = async (lat, lon, unit) => {
-        const api = '34c77a8033259550c71448ec1fda10ad';
+        const api = APIKEY;
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${api}&units=${unit}`
         const response = await fetch(url);
         const data = await response.json();
@@ -29,9 +32,18 @@ export default function WeatherCard() {
         // console.log(lat, lon, unit)
     }
 
+    const getForecast = async (lat,lon,unit) => {
+        const api = APIKEY;
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${api}&units=${unit}`
+        const response = await fetch(url);
+        const data = await response.json();
+        data && setForecasts(data.list); 
+    };
+
     const getLocation = () => {
         navigator.geolocation.getCurrentPosition((post) => {
             getData(post.coords.latitude, post.coords.longitude, 'metric');
+            getForecast(post.coords.latitude, post.coords.longitude, 'metric');
             setLat(parseFloat(post.coords.latitude).toFixed(5));
             setLon(parseFloat(post.coords.longitude).toFixed(5));
         })
@@ -44,6 +56,20 @@ export default function WeatherCard() {
     const update = setInterval(() => {
             setCurrentTime(new Date());
         }, 1 * 1000);
+        
+    const today = new Date();
+
+    const filterForecast = () => {
+        let forecastByDay = [];
+        for (let i = 1; i < 6; i++){
+            let f = (forecasts.filter(day => parseInt(day.dt_txt.split(' ')[0].split('-')[2]) === (today.getDate() + i))[2]);
+            console.log(f);
+            forecastByDay[i-1] = f;
+        }
+        forecastByDay.length > 0 && setForecasts(forecastByDay);
+        invisible ==  'invisible' ? setInvisible('visible') : setInvisible('invisible');
+        console.log(forecasts, forecastByDay);
+    }   
 
     if (!weather) {
         return (
@@ -102,6 +128,7 @@ export default function WeatherCard() {
                             </div>
                         </div>
                         <h2 className="clock mt-2">{currentTime.toLocaleTimeString()}</h2>
+                        {/* <button className="btn btn-outline-warning" onClick={()=>filterForecast()}>Get Forecast</button> */}
                     </div>
 
                     <div className="col-12 col-md-4 description">
