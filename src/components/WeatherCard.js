@@ -20,7 +20,7 @@ export default function WeatherCard() {
 
     const getData = async (lat, lon, unit) => {
         const api = '34c77a8033259550c71448ec1fda10ad';
-        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${api}&units=${unit}`
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${api}&units=${unit}`
         const response = await fetch(url);
         const data = await response.json();
         data ? setWeather(data) : setWeather(weatherData);
