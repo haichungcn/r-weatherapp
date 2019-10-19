@@ -4,14 +4,20 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: auto;
+  max-width:50rem;
+  padding-top: 5rem;
 }
 
 body {
   height: 100%;
   background-image: url("./img/cloud-2.gif");
   background-color: rgb(16, 16, 16, 80);
-  background-size: cover; 
+  background-size: cover;
+  background-repeat: no-repeat; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -82,14 +88,15 @@ h1 {
   border-bottom: solid 5px rgb(230, 230, 230);
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  width: 50rem;
+  max-width: 50rem;
+  height: auto;
   padding: 4rem 3rem 10rem 3rem;
   border-radius: 20px;
 }
 
-.weatherCard :hover {
+/* .weatherCard :hover {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
+} */
 
 .temp > p {
   color: white;
@@ -112,6 +119,7 @@ h1 {
   display: inline-block;
   border: solid 2px #e74c3c;
   border-radius: 2rem;
+  max-width: 13rem;
 }
 
 .info {
@@ -165,5 +173,5 @@ h1 {
 }
 
 .bottomContent {
-  height: 10rem;
+  min-height: 9rem;
 }

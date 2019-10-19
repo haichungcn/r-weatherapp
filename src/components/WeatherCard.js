@@ -21,8 +21,8 @@ export default function WeatherCard() {
     const getData = async (lat, lon, unit) => {
         const api = '34c77a8033259550c71448ec1fda10ad';
         const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${api}&units=${unit}`
-        const response = await fetch(url).catch(error => alert(error))
-        const data = await response.json();
+        const response = await fetch(url)
+        const data = await response.json().catch(error => alert(error));
         data ? setWeather(data) : setWeather(weatherData);
         // // setWeather(weatherData);
         // console.log(data);
@@ -59,13 +59,13 @@ export default function WeatherCard() {
     };
 
     return (
-        <div className="App container-fluid text-white my-auto">
-            <div className="container mx-auto my-4 py-4 px-1 weatherCard">
-                <div className="row align-items-center text-center">
-                    <h1 className="col-12 my-2 py-3 text-success">
+        <div className="App container-fluid text-white m-3">
+            <div className="col mx-1 mt-3 mb-4 py-4 px-1 weatherCard m-2">
+                <div className="row container align-items-center text-center m-0">
+                    <h1 className="col-12 my-2 py-3 mx-0 text-success">
                         <strong>Awesome Weather App</strong>
                     </h1>
-                    <div className="dropdown col-2 container text-left">
+                    <div className="dropdown col-2 container text-center">
                         <button className="btn city dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i className="fas fa-city text-muted"></i>
                         </button>
@@ -73,9 +73,10 @@ export default function WeatherCard() {
                             onGetCityLocation = {getCityLocation}
                             onCities = {cities}
                         />
-                    </div><h2 className="col-8">
+                    </div>
+                    <h2 className="col-8">
                         {weather ? weather.name : 'Location Name'}, {weather && weather.sys.country}
-                        <p className="lead text-warning coordinateDisplay">{lat}°, {lon}°</p>
+                        <p className="lead text-warning coordinateDisplay mt-3">{lat}°, {lon}°</p>
                     </h2>
 
                     <div className="col-2 container text-center"><a href="#" className="refresh"
@@ -89,7 +90,7 @@ export default function WeatherCard() {
                     </div>
 
                     <div className="col-12 col-md-4 d-flex p-0 flex-column justify-content-start align-items-center">
-                        <div className="container mb-2 infoContainer d-flex justify-content-center align-items-start shadow">
+                        <div className="container mb-3 infoContainer d-flex justify-content-center align-items-start shadow">
                             <div className="container info d-flex justify-content-center align-items-start">
                                 <p className="infoContent">
                                     {weather ? `Min Temp: ${weather.main.temp_min}°C` : 'Min Temp'}<br></br>
