@@ -10,7 +10,7 @@
     "coordinate-parser": "^1.0.2",
     "dotenv": "^8.2.0",
     "http2": "^3.3.7",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "react": "^16.10.2",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.10.2",
